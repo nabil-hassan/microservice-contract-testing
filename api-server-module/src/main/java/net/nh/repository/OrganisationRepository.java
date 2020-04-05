@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrganisationRepository {
 
-    Organisation findOrganisationById(Long id) throws EntityNotFoundException;
+    Organisation findOrganisationById(Long id);
 
     List<Organisation> findOrganisations();
 
@@ -21,6 +21,6 @@ public interface OrganisationRepository {
 
     Organisation create(Organisation organisation);
 
-    Organisation update(Long id, Organisation organisation) throws EntityNotFoundException;
+    Organisation update(Organisation organisation);
 
 }

@@ -6,15 +6,288 @@
 	},
 	"item": [
 		{
-			"name": "Find Organisation",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
+			"name": "Account",
+			"item": [
+				{
+					"name": "Get Account By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/accounts/1",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"accounts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/accounts",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accounts By Publisher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/accounts?publisherId=1",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "publisherId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"buyerId\" : 4, \n    \"advertiserId\" : 9, \n    \"publisherId\" : 1, \n    \"externalId\" : \"EX1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_location}}/accounts",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Account",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"buyerId\" : 4, \n    \"advertiserId\" : 9, \n    \"publisherId\" : 1, \n    \"externalId\" : \"EX2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_location}}/accounts/21",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"accounts",
+								"21"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Organisation",
+			"item": [
+				{
+					"name": "Find Organisation By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/organisations/43",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations",
+								"43"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find All Organisations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/organisations",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Organisations By Publisher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/organisations?publisherId=1",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations"
+							],
+							"query": [
+								{
+									"key": "publisherId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Organisations By Role",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/organisations?role=BUYER",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "BUYER"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Organisations By Role & Country Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest_location}}/organisations?role=BUYER&countryCode=EU",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "BUYER"
+								},
+								{
+									"key": "countryCode",
+									"value": "EU"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Organisation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"test_org\",\n    \"countryCode\" : \"UK\",\n    \"publisherId\" : 1,\n    \"roles\" : [\"ADVERTISER\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_location}}/organisations",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Organisation",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"test_org_renamed\",\n    \"countryCode\" : \"UK\",\n    \"publisherId\" : 1,\n    \"roles\" : [\"ADVERTISER\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest_location}}/organisations/43",
+							"host": [
+								"{{rest_location}}"
+							],
+							"path": [
+								"organisations",
+								"43"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

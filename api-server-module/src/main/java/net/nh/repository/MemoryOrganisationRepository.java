@@ -24,12 +24,8 @@ public class MemoryOrganisationRepository implements OrganisationRepository {
     }
 
     @Override
-    public Organisation findOrganisationById(Long id) throws EntityNotFoundException {
-        Organisation organisation = datasource.get(id);
-        if (organisation == null) {
-            throw new EntityNotFoundException(this.getClass(), id);
-        }
-        return organisation;
+    public Organisation findOrganisationById(Long id) {
+        return datasource.get(id);
     }
 
     @Override
@@ -40,15 +36,13 @@ public class MemoryOrganisationRepository implements OrganisationRepository {
 
     @Override
     public List<Organisation> findOrganisationsByPublisher(Long publisherId) {
-        Objects.requireNonNull(publisherId);
         return datasource.values().stream()
-                .filter(o -> o.getPublisher().getId().equals(publisherId))
+                .filter(o -> o.getPublisher() != null && o.getPublisher().getId().equals(publisherId))
                 .sorted(Comparator.comparing(Organisation::getId)).collect(Collectors.toList());
     }
 
     @Override
     public List<Organisation> findOrganisationsByCountryCode(String countryCode) {
-        Objects.requireNonNull(countryCode);
         return datasource.values().stream()
                 .filter(o -> o.getCountryCode().equals(countryCode))
                 .sorted(Comparator.comparing(Organisation::getId))
@@ -57,7 +51,6 @@ public class MemoryOrganisationRepository implements OrganisationRepository {
 
     @Override
     public List<Organisation> findOrganisationsByRole(OrganisationRole role) {
-        Objects.requireNonNull(role);
         return datasource.values().stream()
                 .filter(o -> o.getRoles().contains(role))
                 .sorted(Comparator.comparing(Organisation::getId))
@@ -66,8 +59,6 @@ public class MemoryOrganisationRepository implements OrganisationRepository {
 
     @Override
     public List<Organisation> findOrganisationsByCountryCodeAndRole(String countryCode, OrganisationRole role) {
-        Objects.requireNonNull(countryCode);
-        Objects.requireNonNull(role);
         return datasource.values().stream()
                 .filter(o -> o.getCountryCode().equals(countryCode) && o.getRoles().contains(role))
                 .sorted(Comparator.comparing(Organisation::getId))
@@ -76,7 +67,6 @@ public class MemoryOrganisationRepository implements OrganisationRepository {
 
     @Override
     public Organisation create(Organisation organisation) {
-        Objects.requireNonNull(organisation);
         synchronized (this) {
             organisation.setId(++idSequenceNumber);
             datasource.put(organisation.getId(), organisation);
@@ -85,14 +75,9 @@ public class MemoryOrganisationRepository implements OrganisationRepository {
     }
 
     @Override
-    public Organisation update(Long id, Organisation organisation) throws EntityNotFoundException {
-        Objects.requireNonNull(id);
-        Objects.requireNonNull(organisation);
-        if (!datasource.containsKey(id)) {
-            throw new EntityNotFoundException(this.getClass(), id);
-        }
+    public Organisation update(Organisation organisation){
         synchronized (this) {
-            datasource.put(id, organisation);
+            datasource.put(organisation.getId(), organisation);
         }
         return organisation;
     }
