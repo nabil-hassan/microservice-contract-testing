@@ -1,0 +1,27 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    
+    sourceCompatibility = JavaVersion.VERSION_11 
+    targetCompatibility = JavaVersion.VERSION_11 
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+configure([project(':api-client-module'), project(':api-server-module')]) {
+    // configuration
+    dependencies {
+        compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+        compile "org.apache.commons:commons-text:$commonsVersion"
+    }
+}
