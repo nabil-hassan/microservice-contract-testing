@@ -9,19 +9,24 @@ buildscript {
 
 subprojects {
     apply plugin: 'java'
-    
-    sourceCompatibility = JavaVersion.VERSION_11 
-    targetCompatibility = JavaVersion.VERSION_11 
+    apply plugin : "org.springframework.boot"
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     repositories {
         mavenCentral()
     }
 }
 
-configure([project(':api-client-module'), project(':api-server-module')]) {
+configure([project(':api-client-module'), project(':api-server-rest-module')]) {
     // configuration
     dependencies {
         compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
         compile "org.apache.commons:commons-text:$commonsVersion"
     }
+}
+
+wrapper {
+    gradleVersion = '5.4.1'
 }
