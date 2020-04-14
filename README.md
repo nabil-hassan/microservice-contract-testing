@@ -4,9 +4,11 @@
 
 Illustrates how to use contract testing techniques to verify the behaviour of REST and SOAP endpoints, and Kafka queues.
 
-The project is comprised of the following modules:
+The project comprises the following modules:
 
-  * `api-server-module`: Exposes SOAP and REST API endpoints
+  * `api-server-core-module`: Contains repository level code shared by both the SOAP and REST modules
+  * `api-server-rest-module`: Exposes REST API endpoints
+  * `api-server-soap-module`: Exposes SOAP API endpoints
   * `api-client-module`: Contains client code which consumes the endpoints defined in api-server-module
   * `pact-module` : Defines contract tests based on the server and client code defined in the previous 2 modules
   

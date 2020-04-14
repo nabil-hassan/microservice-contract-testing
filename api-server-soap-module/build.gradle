@@ -1,40 +1,31 @@
-configurations {
-    xsd2java
+plugins {
+    id "org.hibernate.build.xjc" version "2.0.1"
 }
 
 dependencies {
-    xsd2java "javax.xml.bind:jaxb-api:$jaxbVersion"
-    xsd2java "com.sun.xml.bind:jaxb-core:$jaxbVersion"
-    xsd2java "com.sun.xml.bind:jaxb-impl:$jaxbVersion"
-    xsd2java "com.sun.xml.bind:jaxb-xjc:$jaxbVersion"
-    xsd2java "com.sun.activation:javax.activation:1.2.0"
+    xjc 'org.glassfish.jaxb:jaxb-xjc:2.3.2'
+    xjc 'org.jvnet.jaxb2_commons:jaxb2-basics:0.9.3'
+    xjc 'org.jvnet.jaxb2_commons:jaxb2-basics-ant:0.9.3'
+    xjc "com.sun.activation:javax.activation:1.2.0"
+    implementation project(':api-server-core-module')
+    implementation "wsdl4j:wsdl4j:1.6.3"
     implementation "org.springframework.boot:spring-boot-starter-web-services:$springBootVersion"
-    implementation 'wsdl4j:wsdl4j:1.6.1'
-//    jaxb("org.glassfish.jaxb:jaxb-xjc:2.2.11")
+    runtime "org.glassfish.jaxb:jaxb-runtime:2.3.2"
 }
 
-task xsd2java() {
-    def jaxbTargetDir = file("src/generated/java")
-    doLast {
-        jaxbTargetDir.mkdirs()
+xjc {
+    outputDir = file('src/generated/xjc')
+    xjcTaskName = 'org.jvnet.jaxb2_commons.xjc.XJC2Task'
+}
 
-        ant.taskdef(name: 'xjc', classname: 'com.sun.tools.xjc.XJCTask', classpath: configurations.xsd2java.asPath)
-        ant.jaxbTargetDir = jaxbTargetDir
-
-        ant.xjc(
-                destdir: '${jaxbTargetDir}',
-                package: 'net.nh.request',
-                schema: 'src/main/resources/XMLreq.xsd'
-        )
-
-//        ant.xjc(
-//                destdir: '${jaxbTargetDir}',
-//                package: 'net.nh.response',
-//                schema: 'src/main/resources/XMLres.xsd'
-//        )
-
+xjc {
+    schemas {
+        primary {
+            xsd = file('src/main/resources/soap-schema.xsd')
+            xjcBinding = file('src/main/resources/binding.xjb')
+        }
     }
 }
-clean.doFirst {delete "src/generated"}
-compileJava.dependsOn xsd2java
-sourceSets.main.java.srcDirs += ['src/generated/java/net/nh']
+
+clean.doFirst { delete "src/generated" }
+sourceSets.main.java.srcDirs += ['src/generated/']

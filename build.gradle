@@ -23,7 +23,6 @@ configure([project(':api-client-module'), project(':api-server-rest-module')]) {
     // configuration
     dependencies {
         compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
-        compile "org.apache.commons:commons-text:$commonsVersion"
     }
 }
 

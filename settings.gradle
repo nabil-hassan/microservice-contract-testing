@@ -1,2 +1,2 @@
 rootProject.name = 'microservice-contract-testing'
-include 'api-client-module', 'api-server-rest-module', 'api-server-soap-module',  'pact-module'
+include 'api-client-module', 'api-server-core-module', 'api-server-rest-module', 'api-server-soap-module',  'pact-module'

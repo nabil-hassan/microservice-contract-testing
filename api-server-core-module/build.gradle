@@ -1,0 +1,8 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    compile "org.apache.commons:commons-text:$commonsVersion"
+}
+
+bootJar {
+    enabled false
+}

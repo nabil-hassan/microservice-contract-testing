@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':api-server-core-module')
+    compile "org.apache.commons:commons-text:$commonsVersion"
+}
