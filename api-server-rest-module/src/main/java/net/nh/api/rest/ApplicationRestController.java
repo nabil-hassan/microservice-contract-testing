@@ -6,8 +6,8 @@ import net.nh.domain.OrganisationRole;
 import net.nh.repository.EntityNotFoundException;
 import net.nh.service.AccountService;
 import net.nh.service.OrganisationService;
-import net.nh.service.AccountTranslationService;
-import net.nh.service.OrganisationTranslationService;
+import net.nh.service.AccountRestTranslationService;
+import net.nh.service.OrganisationRestTranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +30,12 @@ public class ApplicationRestController {
 
     private AccountService accountService;
     private OrganisationService organisationService;
-    private AccountTranslationService accountTranslationService;
-    private OrganisationTranslationService organisationTranslationService;
+    private AccountRestTranslationService accountTranslationService;
+    private OrganisationRestTranslationService organisationTranslationService;
 
     @Autowired
     public ApplicationRestController(AccountService accountService, OrganisationService organisationService,
-                                     AccountTranslationService accountTranslationService, OrganisationTranslationService organisationTranslationService) {
+                                     AccountRestTranslationService accountTranslationService, OrganisationRestTranslationService organisationTranslationService) {
         this.accountService = accountService;
         this.organisationService = organisationService;
         this.accountTranslationService = accountTranslationService;

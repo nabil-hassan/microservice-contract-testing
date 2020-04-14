@@ -1,8 +1,15 @@
 package net.nh;
 
-import nh.net.api_soap_server.Country;
-import nh.net.api_soap_server.GetCountryRequest;
-import nh.net.api_soap_server.GetCountryResponse;
+import net.nh.domain.Organisation;
+import net.nh.repository.EntityNotFoundException;
+import net.nh.repository.OrganisationRepository;
+import net.nh.service.AccountService;
+import net.nh.service.AccountSoapTranslationService;
+import net.nh.service.OrganisationService;
+import net.nh.service.OrganisationSoapTranslationService;
+import nh.net.api_soap_server.FindOrganisationByID;
+import nh.net.api_soap_server.OrganisationResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -13,18 +20,32 @@ public class ApplicationEndpoint {
 
     public static final String NAMESPACE_URI = "http://net.nh/api-soap-server";
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
+    private AccountService accountService;
+    private AccountSoapTranslationService accountTranslationService;
+    private OrganisationService organisationService;
+    private OrganisationSoapTranslationService organisationTranslationService;
+
+    @Autowired
+    public ApplicationEndpoint(AccountService accountService, AccountSoapTranslationService accountTranslationService,
+                               OrganisationService organisationService, OrganisationSoapTranslationService organisationTranslationService) {
+        this.accountService = accountService;
+        this.accountTranslationService = accountTranslationService;
+        this.organisationService = organisationService;
+        this.organisationTranslationService = organisationTranslationService;
+    }
+
+    // ======================================== Organisations ==========================================================
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "findOrganisationByID")
     @ResponsePayload
-    public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
-        Country country = new Country();
-        country.setCapital("London");
-        country.setName("England");
-        country.setPopulation(60_000_000L);
-
-        GetCountryResponse response = new GetCountryResponse();
-        response.setCountry(country);
-
-        return response;
+    public OrganisationResponse findOrganisationById(@RequestPayload FindOrganisationByID request) {
+        try {
+            Organisation organisationById = organisationService.findOrganisationById(request.getId());
+            OrganisationResponse response = organisationTranslationService.toResponse(organisationById);
+            return response;
+        } catch (EntityNotFoundException ex) {
+            //TODO: proper handling???
+            throw new RuntimeException("Specified organisation does not exist", ex);
+        }
     }
 
 }

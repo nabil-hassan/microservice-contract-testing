@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 @Component
-public class AccountTranslationService {
+public class AccountRestTranslationService {
 
     private OrganisationRepository organisationRepository;
-    private OrganisationTranslationService organisationTranslationService;
+    private OrganisationRestTranslationService organisationTranslationService;
 
     @Autowired
-    public AccountTranslationService(OrganisationRepository organisationRepository, OrganisationTranslationService organisationTranslationService) {
+    public AccountRestTranslationService(OrganisationRepository organisationRepository, OrganisationRestTranslationService organisationTranslationService) {
         this.organisationRepository = organisationRepository;
         this.organisationTranslationService = organisationTranslationService;
     }

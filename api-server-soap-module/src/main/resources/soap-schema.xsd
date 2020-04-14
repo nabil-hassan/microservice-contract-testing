@@ -4,28 +4,31 @@
            elementFormDefault="qualified">
 
     <!-- ============================================= Request Elements ============================================ -->
-    <xs:element name="getCountryRequest">
+    <xs:element name="findOrganisationByID">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
+                <xs:element name="id" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <!-- ============================================= Response Elements =========================================== -->
-    <xs:element name="getCountryResponse">
+    <xs:element name="organisationResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="country" type="tns:country"/>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="countryCode" type="xs:string"/>
+                <xs:element name="publisher" type="tns:organisationSummary"/>
+                <!-- TODO: roles -->
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="country">
+    <xs:complexType name="organisationSummary">
         <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
             <xs:element name="name" type="xs:string"/>
-            <xs:element name="population" type="xs:long"/>
-            <xs:element name="capital" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
