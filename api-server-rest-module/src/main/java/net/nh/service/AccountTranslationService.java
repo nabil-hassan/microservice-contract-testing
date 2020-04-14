@@ -1,6 +1,8 @@
 package net.nh.service;
 
 import net.nh.api.rest.AccountRequest;
+import net.nh.api.rest.AccountResponse;
+import net.nh.api.rest.OrganisationSummary;
 import net.nh.domain.Account;
 import net.nh.domain.Organisation;
 import net.nh.domain.OrganisationRole;
@@ -15,13 +17,15 @@ import java.util.Objects;
 public class AccountTranslationService {
 
     private OrganisationRepository organisationRepository;
+    private OrganisationTranslationService organisationTranslationService;
 
     @Autowired
-    public AccountTranslationService(OrganisationRepository organisationRepository) {
+    public AccountTranslationService(OrganisationRepository organisationRepository, OrganisationTranslationService organisationTranslationService) {
         this.organisationRepository = organisationRepository;
+        this.organisationTranslationService = organisationTranslationService;
     }
 
-    public Account buildAccountFromRequest(AccountRequest accountRequest) throws EntityNotFoundException {
+    public Account toAccount(AccountRequest accountRequest) throws EntityNotFoundException {
         Long advertiserId = accountRequest.getAdvertiserId();
         Objects.requireNonNull(advertiserId, "advertiserID is mandatory");
         Organisation advertiser = organisationRepository.findOrganisationById(advertiserId);
@@ -44,6 +48,15 @@ public class AccountTranslationService {
         }
 
         return new Account(accountRequest.getExternalId(), buyer, advertiser, publisher);
+    }
+
+    public AccountResponse toResponse(Account account) {
+        Long id = account.getId();
+        String externalId = account.getExternalId();
+        OrganisationSummary advertiser = organisationTranslationService.toSummary(account.getAdvertiser());
+        OrganisationSummary buyer = organisationTranslationService.toSummary(account.getBuyer());
+        OrganisationSummary publisher = organisationTranslationService.toSummary(account.getPublisher());
+        return new AccountResponse(id, externalId, buyer, advertiser, publisher);
     }
 
 }

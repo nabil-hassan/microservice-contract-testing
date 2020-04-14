@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.*;
 
@@ -45,8 +46,10 @@ public class ApplicationRestController {
     @PostMapping(path = "/accounts", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createAccount(@RequestBody AccountRequest request) {
         try {
-            Account account = accountTranslationService.buildAccountFromRequest(request);
-            return ResponseEntity.ok(accountService.createAccount(account));
+            Account account = accountTranslationService.toAccount(request);
+            Account created = accountService.createAccount(account);
+            AccountResponse response = accountTranslationService.toResponse(created);
+            return ResponseEntity.ok(response);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
@@ -55,37 +58,46 @@ public class ApplicationRestController {
     @PutMapping(path = "/accounts/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateAccount(@PathVariable(name = "id") Long id, @RequestBody AccountRequest request) {
         try {
-            Account account = accountTranslationService.buildAccountFromRequest(request);
-            return ResponseEntity.ok(accountService.updateAccount(id, account));
+            Account account = accountTranslationService.toAccount(request);
+            Account updated = accountService.updateAccount(id, account);
+            AccountResponse response = accountTranslationService.toResponse(updated);
+            return ResponseEntity.ok(response);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
     @GetMapping(path = "/accounts/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Account> getAccount(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<AccountResponse> getAccount(@PathVariable(name = "id") Long id) {
         try {
-            return ResponseEntity.ok(accountService.findById(id));
+            Account account = accountService.findById(id);
+            AccountResponse response = accountTranslationService.toResponse(account);
+            return ResponseEntity.ok(response);
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping(path = "/accounts", produces = APPLICATION_JSON_VALUE)
-    public List<Account> getAccounts(@RequestParam(name = "publisherId", required = false) Long publisherId) {
+    public List<AccountResponse> getAccounts(@RequestParam(name = "publisherId", required = false) Long publisherId) {
+        List<Account> accounts;
         if (publisherId == null) {
-            return accountService.findAll();
+            accounts = accountService.findAll();
         } else {
-            return accountService.findByPublisher(publisherId);
+            accounts = accountService.findByPublisher(publisherId);
         }
+        return accounts.stream()
+                .map(accountTranslationService::toResponse).collect(Collectors.toList());
     }
 
     // =================================================== Organisations ===============================================
     @PostMapping(path = "/organisations", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createOrganisation(@RequestBody OrganisationRequest request) {
         try {
-            Organisation organisation = organisationTranslationService.buildOrganisationFromRequest(request);
-            return ResponseEntity.ok(organisationService.create(organisation));
+            Organisation organisation = organisationTranslationService.toOrganisation(request);
+            Organisation created = organisationService.create(organisation);
+            OrganisationResponse response = organisationTranslationService.toResponse(created);
+            return ResponseEntity.ok(response);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
@@ -94,17 +106,21 @@ public class ApplicationRestController {
     @PutMapping(path = "/organisations/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateOrganisation(@PathVariable(name = "id") Long id, @RequestBody OrganisationRequest request) {
         try {
-            Organisation organisation = organisationTranslationService.buildOrganisationFromRequest(request);
-            return ResponseEntity.ok(organisationService.update(id, organisation));
+            Organisation organisation = organisationTranslationService.toOrganisation(request);
+            Organisation updated = organisationService.update(id, organisation);
+            OrganisationResponse response = organisationTranslationService.toResponse(updated);
+            return ResponseEntity.ok(response);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
 
     @GetMapping(path = "/organisations/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Organisation> getOrganisation(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<OrganisationResponse> getOrganisation(@PathVariable(name = "id") Long id) {
         try {
-            return ResponseEntity.ok(organisationService.findOrganisationById(id));
+            Organisation organisationById = organisationService.findOrganisationById(id);
+            OrganisationResponse response = organisationTranslationService.toResponse(organisationById);
+            return ResponseEntity.ok(response);
         } catch (EntityNotFoundException ex) {
             return ResponseEntity.notFound().build();
         }
@@ -114,11 +130,15 @@ public class ApplicationRestController {
     public ResponseEntity<?> getOrganisations(@RequestParam(name = "publisherId", required = false) Long publisherId,
                                           @RequestParam(name = "countryCode", required = false) String countryCode,
                                           @RequestParam(name = "role", required = false) String role) {
+        List<Organisation> organisations = null;
         if (publisherId == null && countryCode == null && role == null) {
-            return ResponseEntity.ok(organisationService.findOrganisations());
+            organisations = organisationService.findOrganisations();
         }
         if (publisherId != null) {
-            return ResponseEntity.ok(organisationService.findOrganisationsByPublisher(publisherId));
+            organisations = organisationService.findOrganisationsByPublisher(publisherId);
+        }
+        if (countryCode != null && role == null) {
+            organisations = organisationService.findOrganisationsByCountryCode(countryCode);
         }
         if (role != null) {
             OrganisationRole orgRole;
@@ -128,12 +148,14 @@ public class ApplicationRestController {
                 return ResponseEntity.badRequest().body("Invalid role");
             }
             if (countryCode == null) {
-                return ResponseEntity.ok(organisationService.findOrganisationsByRole(orgRole));
+                organisations = organisationService.findOrganisationsByRole(orgRole);
             } else {
-                return ResponseEntity.ok(organisationService.findOrganisationsByCountryCodeAndRole(countryCode, orgRole));
+                organisations = organisationService.findOrganisationsByCountryCodeAndRole(countryCode, orgRole);
             }
         }
-        return ResponseEntity.badRequest().body("Invalid query parameter combination");
+        List<OrganisationResponse> response = organisations.stream()
+                .map(organisationTranslationService::toResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
 }
