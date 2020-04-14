@@ -1,6 +1,5 @@
 package net.nh.service;
 
-import net.nh.api.rest.OrganisationRequest;
 import net.nh.domain.Account;
 import net.nh.domain.Organisation;
 import net.nh.domain.OrganisationRole;
@@ -22,17 +21,15 @@ public class OrganisationService {
         this.organisationRepository = organisationRepository;
     }
 
-    public Organisation create(OrganisationRequest request) {
-        Organisation organisation = buildOrganisationFromRequest(request);
+    public Organisation create(Organisation organisation) {
         return organisationRepository.create(organisation);
     }
 
-    public Organisation update(Long id, OrganisationRequest request) throws Exception {
+    public Organisation update(Long id, Organisation organisation) throws Exception {
         Organisation existing = organisationRepository.findOrganisationById(id);
         if (existing == null) {
             throw new EntityNotFoundException(Organisation.class, id);
         }
-        Organisation organisation = buildOrganisationFromRequest(request);
         organisation.setId(id);
         return organisationRepository.update(organisation);
     } 
@@ -65,14 +62,4 @@ public class OrganisationService {
         return organisationRepository.findOrganisationsByCountryCodeAndRole(countryCode, role);
     }
 
-    private Organisation buildOrganisationFromRequest(OrganisationRequest request) {
-        Long publisherId = request.getPublisherId();
-        Objects.requireNonNull(publisherId, "publisherID is mandatory");
-        Organisation publisher = organisationRepository.findOrganisationById(publisherId);
-        if (!publisher.getRoles().contains(OrganisationRole.PUBLISHER)) {
-            throw new IllegalArgumentException("Specified publisher organisation is not a valid publisher");
-        }
-        return new Organisation(request.getName(), request.getCountryCode(), publisher, request.getRoles());
-    }
-    
 }
