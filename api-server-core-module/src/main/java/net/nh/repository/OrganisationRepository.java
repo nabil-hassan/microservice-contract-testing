@@ -9,15 +9,7 @@ public interface OrganisationRepository {
 
     Organisation findOrganisationById(Long id);
 
-    List<Organisation> findOrganisations();
-
-    List<Organisation> findOrganisationsByPublisher(Long publisherId);
-
-    List<Organisation> findOrganisationsByCountryCode(String countryCode);
-
-    List<Organisation> findOrganisationsByRole(OrganisationRole role);
-
-    List<Organisation> findOrganisationsByCountryCodeAndRole(String countryCode, OrganisationRole role);
+    List<Organisation> findOrganisations(Long publisherId, String countryCode, OrganisationRole role);
 
     Organisation create(Organisation organisation);
 

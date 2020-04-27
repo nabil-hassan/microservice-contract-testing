@@ -42,25 +42,12 @@ public class OrganisationService {
         return organisation;
     }
 
-    public List<Organisation> findOrganisations() {
-        return organisationRepository.findOrganisations();
+    public List<Organisation> findAllOrganisations() {
+        return organisationRepository.findOrganisations(null, null, null);
     }
 
-    public List<Organisation> findOrganisationsByPublisher(Long publisherId) {
-        return organisationRepository.findOrganisationsByPublisher(publisherId);
+    public List<Organisation> findOrganisations(Long publisherId, String countryCode, OrganisationRole role) {
+        return organisationRepository.findOrganisations(publisherId, countryCode, role);
     }
-
-    public List<Organisation> findOrganisationsByCountryCode(String countryCode) {
-        return organisationRepository.findOrganisationsByCountryCode(countryCode);
-    }
-
-    public List<Organisation> findOrganisationsByRole(OrganisationRole role) {
-        return organisationRepository.findOrganisationsByRole(role);
-    }
-
-    public List<Organisation> findOrganisationsByCountryCodeAndRole(String countryCode, OrganisationRole role) {
-        return organisationRepository.findOrganisationsByCountryCodeAndRole(countryCode, role);
-    }
-
 
 }

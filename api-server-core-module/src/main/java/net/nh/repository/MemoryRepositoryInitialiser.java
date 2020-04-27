@@ -17,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MemoryRepositoryInitialiser implements InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(MemoryRepositoryInitialiser.class);
+    private Long sequence = 1L;
 
     private MemoryAccountRepository accountRepository;
     private MemoryOrganisationRepository organisationRepository;
@@ -56,10 +57,10 @@ public class MemoryRepositoryInitialiser implements InitializingBean {
         }
         // ======================================== Create 10 UK accounts =============================================
         List<Organisation> ukAdvertisers = organisationRepository
-                .findOrganisationsByCountryCodeAndRole("UK", OrganisationRole.ADVERTISER);
+                .findOrganisations(null, "UK", OrganisationRole.ADVERTISER);
 
         List<Organisation> ukBuyers = organisationRepository
-                .findOrganisationsByCountryCodeAndRole("UK", OrganisationRole.BUYER);
+                .findOrganisations(null, "UK", OrganisationRole.BUYER);
 
         for (int i = 0; i < 10; i++) {
             Organisation advertiser = ukAdvertisers.get(ThreadLocalRandom.current().nextInt(0, 10));
@@ -72,10 +73,10 @@ public class MemoryRepositoryInitialiser implements InitializingBean {
 
         // ======================================== Create 10 EU accounts =============================================
         List<Organisation> euAdvertisers = organisationRepository
-                .findOrganisationsByCountryCodeAndRole("EU", OrganisationRole.ADVERTISER);
+                .findOrganisations(null, "EU", OrganisationRole.ADVERTISER);
 
         List<Organisation> euBuyers = organisationRepository
-                .findOrganisationsByCountryCodeAndRole("EU", OrganisationRole.BUYER);
+                .findOrganisations(null, "EU", OrganisationRole.BUYER);
 
         for (int i = 0; i < 10; i++) {
             Organisation advertiser = euAdvertisers.get(ThreadLocalRandom.current().nextInt(0, 10));
@@ -87,7 +88,7 @@ public class MemoryRepositoryInitialiser implements InitializingBean {
     }
 
     private Organisation buildOrganisation(Organisation publisher, OrganisationRole role, String country) {
-        return new Organisation(RandomStringUtils.randomAlphabetic(10), country, publisher, List.of(role));
+        return new Organisation(role.name() + "_" + (sequence++), country, publisher, List.of(role));
     }
 
 }

@@ -130,29 +130,15 @@ public class ApplicationRestController {
     public ResponseEntity<?> getOrganisations(@RequestParam(name = "publisherId", required = false) Long publisherId,
                                           @RequestParam(name = "countryCode", required = false) String countryCode,
                                           @RequestParam(name = "role", required = false) String role) {
-        List<Organisation> organisations = null;
-        if (publisherId == null && countryCode == null && role == null) {
-            organisations = organisationService.findOrganisations();
-        }
-        if (publisherId != null) {
-            organisations = organisationService.findOrganisationsByPublisher(publisherId);
-        }
-        if (countryCode != null && role == null) {
-            organisations = organisationService.findOrganisationsByCountryCode(countryCode);
-        }
+        OrganisationRole orgRole = null;
         if (role != null) {
-            OrganisationRole orgRole;
             try {
                 orgRole = OrganisationRole.valueOf(role.toUpperCase());
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body("Invalid role");
             }
-            if (countryCode == null) {
-                organisations = organisationService.findOrganisationsByRole(orgRole);
-            } else {
-                organisations = organisationService.findOrganisationsByCountryCodeAndRole(countryCode, orgRole);
-            }
         }
+        List<Organisation> organisations = organisationService.findOrganisations(publisherId, countryCode, orgRole);
         List<OrganisationResponse> response = organisations.stream()
                 .map(organisationTranslationService::toResponse).collect(Collectors.toList());
         return ResponseEntity.ok(response);
