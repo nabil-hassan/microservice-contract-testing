@@ -3,4 +3,24 @@
               xmlns:xs="http://www.w3.org/2001/XMLSchema"
               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
               jxb:extensionBindingPrefixes="xjc">
+    <jxb:bindings schemaLocation="soap-schema.xsd" node="//xs:element[@name='CreateOrUpdateOrganisationRequest']//xs:element[@name='publisherId']">
+        <jxb:property>
+            <jxb:baseType name="java.lang.Long" />
+        </jxb:property>
+    </jxb:bindings>
+    <jxb:bindings schemaLocation="soap-schema.xsd" node="//xs:element[@name='CreateOrUpdateAccountRequest']//xs:element[@name='advertiserId']">
+        <jxb:property>
+            <jxb:baseType name="java.lang.Long" />
+        </jxb:property>
+    </jxb:bindings>
+    <jxb:bindings schemaLocation="soap-schema.xsd" node="//xs:element[@name='CreateOrUpdateAccountRequest']//xs:element[@name='buyerId']">
+        <jxb:property>
+            <jxb:baseType name="java.lang.Long" />
+        </jxb:property>
+    </jxb:bindings>
+    <jxb:bindings schemaLocation="soap-schema.xsd" node="//xs:element[@name='CreateOrUpdateAccountRequest']//xs:element[@name='publisherId']">
+        <jxb:property>
+            <jxb:baseType name="java.lang.Long" />
+        </jxb:property>
+    </jxb:bindings>
 </jxb:bindings>

@@ -11,6 +11,7 @@ import net.nh.service.OrganisationSoapTranslationService;
 import nh.net.api_soap_server.AccountDetail;
 import nh.net.api_soap_server.AccountListResponse;
 import nh.net.api_soap_server.AccountResponse;
+import nh.net.api_soap_server.CreateOrUpdateAccountRequest;
 import nh.net.api_soap_server.CreateOrUpdateOrganisationRequest;
 import nh.net.api_soap_server.FindAccountByIDRequest;
 import nh.net.api_soap_server.FindAccountsRequest;
@@ -133,18 +134,20 @@ public class ApplicationEndpoint {
         return response;
     }
 
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "FindAccountByIdRequest")
-
-
-//    @GetMapping(path = "/accounts/{id}", produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity<AccountResponse> getAccount(@PathVariable(name = "id") Long id) {
-//        try {
-//            Account account = accountService.findById(id);
-//            AccountResponse response = accountTranslationService.toResponse(account);
-//            return ResponseEntity.ok(response);
-//        } catch (EntityNotFoundException ex) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CreateOrUpdateAccountRequest")
+    @ResponsePayload
+    public AccountResponse createOrUpdateAccount(@RequestPayload CreateOrUpdateAccountRequest request) throws Exception {
+        Account account = accountTranslationService.toAccount(request);
+        Account result;
+        if (account.getId() != null) {
+            result = accountService.updateAccount(account.getId(), account);
+        } else {
+            result = accountService.createAccount(account);
+        }
+        AccountDetail detail = accountTranslationService.toDetail(result);
+        AccountResponse response = new AccountResponse();
+        response.setAccountDetail(detail);
+        return response;
+    }
 
 }
