@@ -12,6 +12,9 @@ public class Account {
 
     private Organisation publisher;
 
+    public Account() {
+    }
+
     public Account(String externalId, Organisation buyer, Organisation advertiser, Organisation publisher) {
         this.externalId = externalId;
         this.buyer = buyer;

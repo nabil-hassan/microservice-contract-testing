@@ -12,6 +12,10 @@ public interface AccountRepository {
 
     List<Account> findByPublisher(Long publisherId);
 
+    List<Account> findByAdvertiser(Long advertiserId);
+
+    List<Account> findByBuyer(Long buyerId);
+
     Account create(Account account);
 
     Account update(Account account) throws EntityNotFoundException;

@@ -63,9 +63,9 @@ public class MemoryRepositoryInitialiser implements InitializingBean {
                 .findOrganisations(null, "UK", OrganisationRole.BUYER);
 
         for (int i = 0; i < 10; i++) {
-            Organisation advertiser = ukAdvertisers.get(ThreadLocalRandom.current().nextInt(0, 10));
-            Organisation buyer = ukBuyers.get(ThreadLocalRandom.current().nextInt(0, 10));
-            String externalId = String.valueOf(ThreadLocalRandom.current().nextInt(0, 10000));
+            Organisation advertiser = ukAdvertisers.get(i);
+            Organisation buyer = ukBuyers.get(i);
+            String externalId = String.valueOf(i);
             Account account = new Account(externalId, buyer, advertiser, uk_publisher);
             accountRepository.create(account);
         }
@@ -79,9 +79,9 @@ public class MemoryRepositoryInitialiser implements InitializingBean {
                 .findOrganisations(null, "EU", OrganisationRole.BUYER);
 
         for (int i = 0; i < 10; i++) {
-            Organisation advertiser = euAdvertisers.get(ThreadLocalRandom.current().nextInt(0, 10));
-            Organisation buyer = euBuyers.get(ThreadLocalRandom.current().nextInt(0, 10));
-            String externalId = String.valueOf(ThreadLocalRandom.current().nextInt(0, 10000));
+            Organisation advertiser = euAdvertisers.get(i);
+            Organisation buyer = euBuyers.get(i);
+            String externalId = String.valueOf(i);
             Account account = new Account(externalId, buyer, advertiser, eu_publisher);
             accountRepository.create(account);
         }

@@ -39,6 +39,20 @@ public class MemoryAccountRepository implements AccountRepository {
     }
 
     @Override
+    public List<Account> findByAdvertiser(Long advertiserId) {
+        return dataSource.values().stream()
+                .filter(a -> a.getAdvertiser().getId().equals(advertiserId))
+                .sorted(Comparator.comparing(Account::getId)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Account> findByBuyer(Long buyerId) {
+        return dataSource.values().stream()
+                .filter(a -> a.getBuyer().getId().equals(buyerId))
+                .sorted(Comparator.comparing(Account::getId)).collect(Collectors.toList());
+    }
+
+    @Override
     public Account create(Account account) {
         synchronized (this) {
             account.setId(++idSequenceNumber);

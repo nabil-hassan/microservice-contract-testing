@@ -30,7 +30,7 @@
                 <xs:element name="id" type="xs:long" minOccurs="0"/>
                 <xs:element name="name" type="xs:string"/>
                 <xs:element name="countryCode" type="xs:string"/>
-                <xs:element name="publisherId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="publisherId" type="xs:long" minOccurs="1"/>
                 <xs:element name="roles" type="tns:OrganisationRoles"/>
             </xs:sequence>
         </xs:complexType>
@@ -100,6 +100,18 @@
                 <xs:element name="publisherId" type="xs:long" minOccurs="0"/>
                 <xs:element name="advertiserId" type="xs:long" minOccurs="0"/>
                 <xs:element name="buyerId" type="xs:long" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateOrUpdateAccountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" minOccurs="0"/>
+                <xs:element name="externalId" type="xs:string"/>
+                <xs:element name="advertiserId" type="xs:long"/>
+                <xs:element name="buyerId" type="xs:long"/>
+                <xs:element name="publisherId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

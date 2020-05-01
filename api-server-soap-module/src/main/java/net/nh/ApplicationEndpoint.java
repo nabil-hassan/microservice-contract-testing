@@ -11,6 +11,7 @@ import net.nh.service.OrganisationSoapTranslationService;
 import nh.net.api_soap_server.AccountDetail;
 import nh.net.api_soap_server.AccountListResponse;
 import nh.net.api_soap_server.AccountResponse;
+import nh.net.api_soap_server.CreateOrUpdateAccountRequest;
 import nh.net.api_soap_server.CreateOrUpdateOrganisationRequest;
 import nh.net.api_soap_server.FindAccountByIDRequest;
 import nh.net.api_soap_server.FindAccountsRequest;
@@ -22,6 +23,7 @@ import nh.net.api_soap_server.OrganisationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -117,35 +119,35 @@ public class ApplicationEndpoint {
     @ResponsePayload
     public AccountListResponse findAccounts(@RequestPayload FindAccountsRequest request) {
         AccountListResponse response = new AccountListResponse();
+        List<Account> accounts;
         List<AccountDetail> details;
-        if (request.getAdvertiserId() != null) {
-            //TODO: implement
-            details = Collections.emptyList();
+        if (request.getPublisherId() != null) {
+            accounts = accountService.findByPublisher(request.getPublisherId());
+        } else if (request.getAdvertiserId() != null) {
+            accounts = accountService.findByAdvertiser(request.getAdvertiserId());
         } else if (request.getBuyerId() != null) {
-            //TODO: implement
-            details = Collections.emptyList();
-        } else if (request.getPublisherId() != null) {
-            //TODO: implement
-            details = Collections.emptyList();
+            accounts = accountService.findByBuyer(request.getBuyerId());
         } else {
-            details = accountService.findAll().stream().map(accountTranslationService::toDetail).collect(Collectors.toList());
+            accounts = accountService.findAll();
         }
-        response.getAccountDetails().addAll(details);
+        response.getAccountDetails().addAll(accounts.stream().map(accountTranslationService::toDetail).collect(Collectors.toList()));
         return response;
     }
 
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "FindAccountByIdRequest")
-
-
-//    @GetMapping(path = "/accounts/{id}", produces = APPLICATION_JSON_VALUE)
-//    public ResponseEntity<AccountResponse> getAccount(@PathVariable(name = "id") Long id) {
-//        try {
-//            Account account = accountService.findById(id);
-//            AccountResponse response = accountTranslationService.toResponse(account);
-//            return ResponseEntity.ok(response);
-//        } catch (EntityNotFoundException ex) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "CreateOrUpdateAccountRequest")
+    @ResponsePayload
+    public AccountResponse createOrUpdateAccount(@RequestPayload CreateOrUpdateAccountRequest request) throws Exception {
+        Account account = accountTranslationService.toAccount(request);
+        Account result;
+        if (account.getId() != null) {
+            result = accountService.updateAccount(account.getId(), account);
+        } else {
+            result = accountService.createAccount(account);
+        }
+        AccountDetail detail = accountTranslationService.toDetail(result);
+        AccountResponse response = new AccountResponse();
+        response.setAccountDetail(detail);
+        return response;
+    }
 
 }
