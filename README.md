@@ -1,5 +1,7 @@
 # microservice-contract-testing
 
+![](https://github.com/nabil-hassan/microservice-contract-testing/workflows/.github/workflows/gradle.yml/badge.svg)
+
 ## Overview
 
 Illustrates how to use contract testing techniques to verify the behaviour of REST and SOAP endpoints, and Kafka queues.
