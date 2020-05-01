@@ -19,6 +19,8 @@ import nh.net.api_soap_server.FindOrganisationsRequest;
 import nh.net.api_soap_server.OrganisationDetail;
 import nh.net.api_soap_server.OrganisationListResponse;
 import nh.net.api_soap_server.OrganisationResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Endpoint
 public class ApplicationEndpoint {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationEndpoint.class);
 
     public static final String NAMESPACE_URI = "http://net.nh/api-soap-server";
 
