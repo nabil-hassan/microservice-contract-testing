@@ -40,8 +40,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Endpoint
 public class ApplicationEndpoint {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ApplicationEndpoint.class);
-
     public static final String NAMESPACE_URI = "http://net.nh/api-soap-server";
 
     private AccountService accountService;
