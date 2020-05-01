@@ -83,15 +83,20 @@ public class ApplicationRestController {
     }
 
     @GetMapping(path = "/accounts", produces = APPLICATION_JSON_VALUE)
-    public List<AccountResponse> getAccounts(@RequestParam(name = "publisherId", required = false) Long publisherId) {
+    public List<AccountResponse> getAccounts(@RequestParam(name = "publisherId", required = false) Long publisherId,
+                                             @RequestParam(name = "advertiserId", required = false) Long advertiserId,
+                                             @RequestParam(name = "buyerId", required = false) Long buyerId) {
         List<Account> accounts;
-        if (publisherId == null) {
-            accounts = accountService.findAll();
-        } else {
+        if (publisherId != null){
             accounts = accountService.findByPublisher(publisherId);
+        } else if (advertiserId != null) {
+            accounts = accountService.findByAdvertiser(advertiserId);
+        } else if (buyerId != null) {
+            accounts = accountService.findByBuyer(buyerId);
+        } else {
+            accounts = accountService.findAll();
         }
-        return accounts.stream()
-                .map(accountTranslationService::toResponse).collect(Collectors.toList());
+        return accounts.stream().map(accountTranslationService::toResponse).collect(Collectors.toList());
     }
 
     // =================================================== Organisations ===============================================

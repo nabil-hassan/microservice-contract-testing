@@ -51,4 +51,12 @@ public class AccountService {
         return accountRepository.findByPublisher(publisherId);
     }
 
+    public List<Account> findByAdvertiser(Long advertiserId) {
+        return accountRepository.findByAdvertiser(advertiserId);
+    }
+
+    public List<Account> findByBuyer(Long buyerId) {
+        return accountRepository.findByBuyer(buyerId);
+    }
+
 }
