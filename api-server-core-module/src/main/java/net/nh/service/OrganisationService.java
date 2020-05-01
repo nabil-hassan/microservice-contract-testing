@@ -25,7 +25,7 @@ public class OrganisationService {
         return organisationRepository.create(organisation);
     }
 
-    public Organisation update(Long id, Organisation organisation) throws Exception {
+    public Organisation update(Long id, Organisation organisation) throws EntityNotFoundException {
         Organisation existing = organisationRepository.findOrganisationById(id);
         if (existing == null) {
             throw new EntityNotFoundException(Organisation.class, id);

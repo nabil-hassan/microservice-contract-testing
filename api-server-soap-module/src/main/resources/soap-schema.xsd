@@ -3,54 +3,68 @@
            targetNamespace="http://net.nh/api-soap-server"
            elementFormDefault="qualified">
 
+    <!-- ============================================= ORGANISATION ================================================= -->
+
     <!-- ============================================= Request Elements ============================================ -->
-    <xs:element name="findOrganisationByID">
+    <xs:element name="FindOrganisationByIDRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:long"/>
+                <xs:element name="id" type="xs:long" minOccurs="1" maxOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="findOrganisations">
+    <xs:element name="FindOrganisationsRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="publisherId" type="xs:long" minOccurs="0"/>
                 <xs:element name="countryCode" type="xs:string" minOccurs="0"/>
-                <xs:element name="role" type="tns:organisationSoapRole" minOccurs="0"/>
+                <xs:element name="role" type="tns:OrganisationSoapRole" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateOrUpdateOrganisationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" minOccurs="0"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="countryCode" type="xs:string"/>
+                <xs:element name="publisherId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="roles" type="tns:OrganisationRoles"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <!-- ============================================= Response Elements =========================================== -->
-    <xs:element name="organisationResponse">
+    <xs:element name="OrganisationResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="organisationDetail" type="tns:organisationDetail"/>
+                <xs:element name="organisationDetail" type="tns:OrganisationDetail"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="organisationListResponse">
+    <xs:element name="OrganisationListResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="orgDetails" type="tns:organisationDetail" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element name="orgDetails" type="tns:OrganisationDetail" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <!-- ============================================= Supporting Elements ========================================= -->
-    <xs:complexType name="organisationDetail">
+    <xs:complexType name="OrganisationDetail">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="countryCode" type="xs:string"/>
-            <xs:element name="publisher" type="tns:organisationSummary"/>
-            <xs:element name="roles" type="tns:organisationRoles"/>
+            <xs:element name="publisher" type="tns:OrganisationSummary"/>
+            <xs:element name="roles" type="tns:OrganisationRoles"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="organisationSoapRole">
+    <xs:simpleType name="OrganisationSoapRole">
         <xs:restriction base="xs:string">
             <xs:enumeration value="ADVERTISER"/>
             <xs:enumeration value="BUYER"/>
@@ -58,17 +72,67 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="organisationRoles">
+    <xs:complexType name="OrganisationRoles">
         <xs:sequence>
-            <xs:element name="roles" type="tns:organisationSoapRole" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element name="roles" type="tns:OrganisationSoapRole" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="organisationSummary">
+    <xs:complexType name="OrganisationSummary">
         <xs:sequence>
             <xs:element name="id" type="xs:long"/>
             <xs:element name="name" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
+
+    <!-- ================================================ ACCOUNT ================================================== -->
+    <xs:element name="FindAccountByIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="FindAccountsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="publisherId" type="xs:long" minOccurs="0"/>
+                <xs:element name="advertiserId" type="xs:long" minOccurs="0"/>
+                <xs:element name="buyerId" type="xs:long" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================================= Request Elements ============================================ -->
+    <xs:element name="AccountResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountDetail" type="tns:AccountDetail"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AccountListResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="accountDetails" type="tns:AccountDetail" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================================= Response Elements =========================================== -->
+
+    <!-- ============================================= Supporting Elements ========================================= -->
+    <xs:complexType name="AccountDetail">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="externalId" type="xs:string"/>
+            <xs:element name="publisher" type="tns:OrganisationSummary"/>
+            <xs:element name="advertiser" type="tns:OrganisationSummary"/>
+            <xs:element name="buyer" type="tns:OrganisationSummary"/>
+        </xs:sequence>
+    </xs:complexType>
+
 
 </xs:schema>

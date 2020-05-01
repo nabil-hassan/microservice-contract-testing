@@ -1,4 +1,4 @@
-package net.nh.api.rest;
+package net.nh.api.rest.entities;
 
 public class OrganisationSummary {
 

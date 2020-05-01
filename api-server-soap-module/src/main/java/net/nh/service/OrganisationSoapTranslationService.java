@@ -3,6 +3,7 @@ package net.nh.service;
 import net.nh.domain.Organisation;
 import net.nh.domain.OrganisationRole;
 import net.nh.repository.OrganisationRepository;
+import nh.net.api_soap_server.CreateOrUpdateOrganisationRequest;
 import nh.net.api_soap_server.OrganisationDetail;
 import nh.net.api_soap_server.OrganisationRoles;
 import nh.net.api_soap_server.OrganisationSoapRole;
@@ -35,16 +36,17 @@ public class OrganisationSoapTranslationService {
 
     public OrganisationDetail toDetail(Organisation organisation) {
         OrganisationDetail detail = new OrganisationDetail();
-        OrganisationRoles organisationRoles = new OrganisationRoles();
         detail.setId(organisation.getId());
         detail.setName(organisation.getName());
         detail.setCountryCode(organisation.getCountryCode());
         detail.setPublisher(toSummary(organisation.getPublisher()));
-        detail.setRoles(organisationRoles);
 
         List<OrganisationSoapRole> soapRoles = organisation.getRoles().stream()
                 .map(role -> toOrganisationSOAPRole(role)).collect(Collectors.toList());
-        organisationRoles.getRoles().addAll(soapRoles);
+
+        OrganisationRoles roles  = new OrganisationRoles();
+        roles.getRoles().addAll(soapRoles);
+        detail.setRoles(roles);
         return detail;
     }
 
@@ -67,5 +69,20 @@ public class OrganisationSoapTranslationService {
     }
 
 
+    public Organisation toOrganisation(CreateOrUpdateOrganisationRequest request) {
+        Organisation org = new Organisation();
+        org.setId(request.getId());
+        org.setCountryCode(request.getCountryCode());
+        org.setName(request.getName());
 
+        List<OrganisationRole> roles =  request.getRoles().getRoles().stream().map(this::toOrganisationRole).collect(Collectors.toList());
+        org.setRoles(roles);
+
+        Organisation publisher = organisationRepository.findOrganisationById(request.getPublisherId());
+        if (publisher == null) {
+            throw new IllegalArgumentException("Publisher does not exist");
+        }
+        org.setPublisher(publisher);
+        return org;
+    }
 }

@@ -1,8 +1,8 @@
 package net.nh.service;
 
-import net.nh.api.rest.OrganisationRequest;
-import net.nh.api.rest.OrganisationResponse;
-import net.nh.api.rest.OrganisationSummary;
+import net.nh.api.rest.entities.OrganisationRequest;
+import net.nh.api.rest.entities.OrganisationResponse;
+import net.nh.api.rest.entities.OrganisationSummary;
 import net.nh.domain.Organisation;
 import net.nh.domain.OrganisationRole;
 import net.nh.repository.OrganisationRepository;
