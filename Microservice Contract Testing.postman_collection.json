@@ -6,285 +6,778 @@
 	},
 	"item": [
 		{
-			"name": "Account",
+			"name": "REST",
 			"item": [
 				{
-					"name": "Get Account By Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/accounts/1",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"accounts",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Accounts",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/accounts",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"accounts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Accounts By Publisher",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/accounts?publisherId=1",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"accounts"
-							],
-							"query": [
-								{
-									"key": "publisherId",
-									"value": "1"
+					"name": "Organisation",
+					"item": [
+						{
+							"name": "Find Organisation By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/organisations/2",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations",
+										"2"
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Account",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"buyerId\" : 4, \n    \"advertiserId\" : 9, \n    \"publisherId\" : 1, \n    \"externalId\" : \"EX1\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{rest_location}}/accounts",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"accounts"
-							]
+						{
+							"name": "Find All Organisations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/organisations",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Publisher",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/organisations?publisherId=1",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations"
+									],
+									"query": [
+										{
+											"key": "publisherId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Country Code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/organisations?countryCode=EU",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations"
+									],
+									"query": [
+										{
+											"key": "countryCode",
+											"value": "EU"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Role",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/organisations?role=BUYER",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations"
+									],
+									"query": [
+										{
+											"key": "role",
+											"value": "BUYER"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Role & Country Code",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/organisations?role=BUYER&countryCode=EU",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations"
+									],
+									"query": [
+										{
+											"key": "role",
+											"value": "BUYER"
+										},
+										{
+											"key": "countryCode",
+											"value": "EU"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Organisation",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"a_new_organisation\",\n    \"countryCode\" : \"UK\",\n    \"publisherId\" : 1,\n    \"roles\" : [\"ADVERTISER\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rest_location}}/organisations",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Organisation",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"test_org_renamed\",\n    \"countryCode\" : \"UK\",\n    \"publisherId\" : 1,\n    \"roles\" : [\"ADVERTISER\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rest_location}}/organisations/42",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"organisations",
+										"42"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Update Account",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"buyerId\" : 4, \n    \"advertiserId\" : 9, \n    \"publisherId\" : 1, \n    \"externalId\" : \"EX2\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Account",
+					"item": [
+						{
+							"name": "Get Account By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/accounts/1",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts",
+										"1"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{rest_location}}/accounts/21",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"accounts",
-								"21"
-							]
+						{
+							"name": "Get All Accounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/accounts",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Accounts By Publisher",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/accounts?publisherId=1",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "publisherId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Accounts By Advertiser",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/accounts?advertiserId=5",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "advertiserId",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Accounts By Buyer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{rest_location}}/accounts?buyerId=8",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "buyerId",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Account",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"buyerId\" : 4, \n    \"advertiserId\" : 5, \n    \"publisherId\" : 3, \n    \"externalId\" : \"EX1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rest_location}}/accounts",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Account",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"buyerId\" : 4, \n    \"advertiserId\" : 9, \n    \"publisherId\" : 1, \n    \"externalId\" : \"EX2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{rest_location}}/accounts/21",
+									"host": [
+										"{{rest_location}}"
+									],
+									"path": [
+										"accounts",
+										"21"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Organisation",
+			"name": "SOAP",
 			"item": [
 				{
-					"name": "Find Organisation By Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/organisations/43",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations",
-								"43"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find All Organisations",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/organisations",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find Organisations By Publisher",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/organisations?publisherId=1",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations"
-							],
-							"query": [
-								{
-									"key": "publisherId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find Organisations By Role",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/organisations?role=BUYER",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations"
-							],
-							"query": [
-								{
-									"key": "role",
-									"value": "BUYER"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find Organisations By Role & Country Code",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{rest_location}}/organisations?role=BUYER&countryCode=EU",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations"
-							],
-							"query": [
-								{
-									"key": "role",
-									"value": "BUYER"
+					"name": "Account",
+					"item": [
+						{
+							"name": "Create Account",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:CreateOrUpdateAccountRequest>\n        \t<gs:externalId>\"NEW_ACCOUNT\"</gs:externalId>\n        \t<gs:advertiserId>5</gs:advertiserId>\n        \t<gs:buyerId>4</gs:buyerId>\n        \t<gs:publisherId>1</gs:publisherId>\n        </gs:CreateOrUpdateAccountRequest>\n    </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
 								},
-								{
-									"key": "countryCode",
-									"value": "EU"
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Update Account",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:CreateOrUpdateAccountRequest>\n        \t<gs:id>1</gs:id>\n        \t<gs:externalId>\"I updated the account\"</gs:externalId>\n        \t<gs:advertiserId>3</gs:advertiserId>\n        \t<gs:buyerId>4</gs:buyerId>\n        \t<gs:publisherId>1</gs:publisherId>\n        </gs:CreateOrUpdateAccountRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Account By Id",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindAccountByIDRequest>\n            <gs:id>1</gs:id>\n        </gs:FindAccountByIDRequest>\n    </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find All Accounts",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindAccountsRequest>\n            \n        </gs:FindAccountsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Accounts By Publisher Id",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindAccountsRequest>\n            <gs:publisherId>1</gs:publisherId>\n        </gs:FindAccountsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Accounts By Advertiser Id",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindAccountsRequest>\n            <gs:advertiserId>5</gs:advertiserId>\n        </gs:FindAccountsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Accounts By Buyer Id",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindAccountsRequest>\n            <gs:buyerId>8</gs:buyerId>\n        </gs:FindAccountsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Create Organisation",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\" : \"test_org\",\n    \"countryCode\" : \"UK\",\n    \"publisherId\" : 1,\n    \"roles\" : [\"ADVERTISER\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Organisation",
+					"item": [
+						{
+							"name": "Find All Organisations",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindOrganisationsRequest>\n        </gs:FindOrganisationsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{rest_location}}/organisations",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations"
-							]
+						{
+							"name": "Find Organisation By ID",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindOrganisationByIDRequest>\n            <gs:id>22</gs:id>\n        </gs:FindOrganisationByIDRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Publisher Id",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindOrganisationsRequest>\n           <gs:publisherId>1</gs:publisherId>\n        </gs:FindOrganisationsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindOrganisationsRequest>\n           <gs:role>BUYER</gs:role>\n        </gs:FindOrganisationsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Country Code",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindOrganisationsRequest>\n           <gs:countryCode>UK</gs:countryCode>\n        </gs:FindOrganisationsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Organisations By Country Code & Role",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:FindOrganisationsRequest>\n           <gs:countryCode>EU</gs:countryCode>\n           <gs:role>ADVERTISER</gs:role>\n        </gs:FindOrganisationsRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Organisation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:CreateOrUpdateOrganisationRequest>\n        \t<gs:name>Created_Org</gs:name>\n            <gs:countryCode>GB</gs:countryCode>\n    \t\t<gs:publisherId>1</gs:publisherId>\n\t\t\t<gs:roles>\n\t\t\t\t<gs:roles>ADVERTISER</gs:roles>\n\t\t\t</gs:roles>            \n        </gs:CreateOrUpdateOrganisationRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Organisation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "text/xml"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n                  xmlns:gs=\"http://net.nh/api-soap-server\">\n    <soapenv:Header/>\n    <soapenv:Body>\n        <gs:CreateOrUpdateOrganisationRequest>\n        \t<gs:id>22</gs:id>\n        \t<gs:name>ORG_WAS_UPDATED</gs:name>\n            <gs:countryCode>GB</gs:countryCode>\n            <gs:publisherId>1</gs:publisherId>\n\t\t\t<gs:roles>\n\t\t\t\t<gs:roles>ADVERTISER</gs:roles>\n\t\t\t</gs:roles>            \n        </gs:CreateOrUpdateOrganisationRequest>\n    </soapenv:Body>\n</soapenv:Envelope>"
+								},
+								"url": {
+									"raw": "{{soap_location}}",
+									"host": [
+										"{{soap_location}}"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Update Organisation",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\" : \"test_org_renamed\",\n    \"countryCode\" : \"UK\",\n    \"publisherId\" : 1,\n    \"roles\" : [\"ADVERTISER\"]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{rest_location}}/organisations/43",
-							"host": [
-								"{{rest_location}}"
-							],
-							"path": [
-								"organisations",
-								"43"
-							]
-						}
-					},
-					"response": []
+					"name": "Temporary",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
 				}
 			],
 			"protocolProfileBehavior": {}
