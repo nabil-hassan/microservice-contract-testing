@@ -1,4 +1,4 @@
-package net.nh.api.rest;
+package net.nh.api.rest.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import net.nh.domain.OrganisationRole;

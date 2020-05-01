@@ -1,5 +1,9 @@
 package net.nh.api.rest;
 
+import net.nh.api.rest.entities.AccountRequest;
+import net.nh.api.rest.entities.AccountResponse;
+import net.nh.api.rest.entities.OrganisationRequest;
+import net.nh.api.rest.entities.OrganisationResponse;
 import net.nh.domain.Account;
 import net.nh.domain.Organisation;
 import net.nh.domain.OrganisationRole;
